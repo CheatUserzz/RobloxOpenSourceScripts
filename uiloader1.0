@@ -1,0 +1,186 @@
+local LOADER = {}
+
+function LOADER:Add(callback)
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+
+    local imageUrl = Players:GetUserThumbnailAsync(
+        LocalPlayer.UserId,
+        Enum.ThumbnailType.HeadShot,
+        Enum.ThumbnailSize.Size150x150
+    )
+
+    -- MAIN GUI
+    local Gui = Instance.new("ScreenGui")
+    Gui.Name = "NEVERLOSE_LOADER"
+    Gui.Parent = game.CoreGui
+
+    -- MAIN FRAME
+    local Frame = Instance.new("Frame")
+    Frame.Name = "Main"
+    Frame.Size = UDim2.new(0.43,0,0.82,0)
+    Frame.Position = UDim2.new(0.5,0,0.5,0)
+    Frame.AnchorPoint = Vector2.new(0.5,0.5)
+    Frame.BackgroundColor3 = Color3.fromRGB(245,245,245)
+    Frame.BorderSizePixel = 0
+    Frame.Active = true
+    Frame.Draggable = true
+    Frame.Parent = Gui
+
+    Instance.new("UICorner", Frame).CornerRadius = UDim.new(0,6)
+    Instance.new("UIStroke", Frame).Color = Color3.fromRGB(200,200,200)
+
+    ------------------------------------------------------------------------
+    -- CLOSE BUTTON
+    ------------------------------------------------------------------------
+    local Close = Instance.new("TextButton")
+    Close.Size = UDim2.new(0,28,0,28)
+    Close.Position = UDim2.new(1,-32,0,6)
+    Close.BackgroundTransparency = 1
+    Close.Text = "✕"
+    Close.Font = Enum.Font.GothamBold
+    Close.TextSize = 20
+    Close.TextColor3 = Color3.fromRGB(120,0,0)
+    Close.Parent = Frame
+    Close.ZIndex = 999
+
+    Close.MouseButton1Click:Connect(function()
+        Frame:Destroy()
+    end)
+
+    ------------------------------------------------------------------------
+    -- TITLE BAR
+    ------------------------------------------------------------------------
+    local Title = Instance.new("TextLabel")
+    Title.Size = UDim2.new(1,-40,0,40)
+    Title.Position = UDim2.new(0,15,0,0)
+    Title.BackgroundTransparency = 1
+    Title.Text = "NEVERLOSE – WHITE EDITION"
+    Title.Font = Enum.Font.GothamBlack
+    Title.TextSize = 20
+    Title.TextColor3 = Color3.fromRGB(45,45,45)
+    Title.TextXAlignment = Enum.TextXAlignment.Left
+    Title.Parent = Frame
+
+    ------------------------------------------------------------------------
+    -- LEFT TAB BAR
+    ------------------------------------------------------------------------
+    local Tabs = Instance.new("Frame")
+    Tabs.Size = UDim2.new(0.27,0,1,-40)
+    Tabs.Position = UDim2.new(0,0,0,40)
+    Tabs.BackgroundColor3 = Color3.fromRGB(235,235,235)
+    Tabs.BorderSizePixel = 0
+    Tabs.Parent = Frame
+
+    Instance.new("UICorner", Tabs).CornerRadius = UDim.new(0,4)
+    Instance.new("UIStroke", Tabs).Color = Color3.fromRGB(210,210,210)
+
+    local TabLabel = Instance.new("TextLabel")
+    TabLabel.Size = UDim2.new(1,0,0,30)
+    TabLabel.BackgroundTransparency = 1
+    TabLabel.Text = "Subscription"
+    TabLabel.Font = Enum.Font.GothamBold
+    TabLabel.TextSize = 16
+    TabLabel.TextColor3 = Color3.fromRGB(100,100,100)
+    TabLabel.Parent = Tabs
+
+    ------------------------------------------------------------------------
+    -- RIGHT CONTENT
+    ------------------------------------------------------------------------
+    local Content = Instance.new("Frame")
+    Content.Size = UDim2.new(0.73,0,1,-40)
+    Content.Position = UDim2.new(0.27,0,0,40)
+    Content.BackgroundColor3 = Color3.fromRGB(255,255,255)
+    Content.BorderSizePixel = 0
+    Content.Parent = Frame
+
+    Instance.new("UICorner", Content).CornerRadius = UDim.new(0,4)
+    Instance.new("UIStroke", Content).Color = Color3.fromRGB(220,220,220)
+
+    ------------------------------------------------------------------------
+    -- TITLE INSIDE CONTENT
+    ------------------------------------------------------------------------
+    local GameTitle = Instance.new("TextLabel")
+    GameTitle.Size = UDim2.new(0.5,0,0,40)
+    GameTitle.Position = UDim2.new(0,15,0,0)
+    GameTitle.BackgroundTransparency = 1
+    GameTitle.Text = "CS:GO"
+    GameTitle.Font = Enum.Font.GothamBlack
+    GameTitle.TextSize = 32
+    GameTitle.TextColor3 = Color3.fromRGB(35,35,35)
+    GameTitle.Parent = Content
+
+    ------------------------------------------------------------------------
+    -- DESCRIPTION BOX
+    ------------------------------------------------------------------------
+    local Desc = Instance.new("TextLabel")
+    Desc.Size = UDim2.new(0.95,0,0.5,0)
+    Desc.Position = UDim2.new(0.025,0,0.22,0)
+    Desc.BackgroundTransparency = 1
+    Desc.Text = [[
+Neverlose for CS:GO (White Edition)
+One of the best legit and rage aimbots.
+Customizable visuals and clean performance.
+    ]]
+    Desc.Font = Enum.Font.Gotham
+    Desc.TextSize = 14
+    Desc.TextWrapped = true
+    Desc.TextColor3 = Color3.fromRGB(70,70,70)
+    Desc.Parent = Content
+
+    ------------------------------------------------------------------------
+    -- USER ICON + NAME
+    ------------------------------------------------------------------------
+    local Avatar = Instance.new("ImageLabel")
+    Avatar.Size = UDim2.new(0,50,0,50)
+    Avatar.Position = UDim2.new(0.02,0,0.82,0)
+    Avatar.Image = imageUrl
+    Avatar.BackgroundTransparency = 1
+    Avatar.Parent = Frame
+    Instance.new("UICorner", Avatar).CornerRadius = UDim.new(1,0)
+
+    local Username = Instance.new("TextLabel")
+    Username.Size = UDim2.new(0.3,0,0,35)
+    Username.Position = UDim2.new(0.12,0,0.83,0)
+    Username.BackgroundTransparency = 1
+    Username.Text = LocalPlayer.Name
+    Username.Font = Enum.Font.GothamBold
+    Username.TextSize = 14
+    Username.TextColor3 = Color3.fromRGB(60,60,60)
+    Username.Parent = Frame
+
+    ------------------------------------------------------------------------
+    -- START BUTTON
+    ------------------------------------------------------------------------
+    local Start = Instance.new("TextButton")
+    Start.Size = UDim2.new(0.35,0,0,42)
+    Start.Position = UDim2.new(0.5,-80,0.88,0)
+    Start.BackgroundColor3 = Color3.fromRGB(0,140,255)
+    Start.Text = "Start"
+    Start.TextColor3 = Color3.fromRGB(255,255,255)
+    Start.Font = Enum.Font.GothamBold
+    Start.TextSize = 18
+    Start.Parent = Frame
+
+    Instance.new("UICorner", Start).CornerRadius = UDim.new(0,6)
+
+    Start.MouseButton1Click:Connect(function()
+        local Sound2 = Instance.new("Sound")
+        Sound2.SoundId = "rbxassetid://6895079853"
+        Sound2.Volume = 1
+        Sound2.Parent = game.SoundService
+        Sound2:Play()
+        Sound2.Ended:Connect(function()
+            Sound2:Destroy()
+        end)
+
+        Gui:Destroy()
+        if callback then
+            callback()
+        end
+    end)
+end
+
+return LOADER
+
+Add(function()
